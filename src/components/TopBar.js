@@ -49,6 +49,11 @@ const TopBar = () => {
                             scan
                         </Button>
                     </RouterLink>
+                    <RouterLink style={{ textDecoration: 'none' }} to="/filetransfer">
+                        <Button className={classes.btn} color="inherit">
+                            file transfer
+                        </Button>
+                    </RouterLink>
                 </Toolbar>
             </AppBar>
         </div>

@@ -27,7 +27,7 @@ function ListItemLink(props) {
     return <ListItem button component="a" {...props} />;
 }
 
-export default function SimpleList() {
+export default function AllScans() {
     const classes = useStyles();
     const [scans, setScans] = useState([]);
     const getScans = async () => {
@@ -67,17 +67,6 @@ export default function SimpleList() {
                                 >
                                     <ListItem button>{scan}</ListItem>
                                 </Link>
-                                {/* <RouterLink
-                                    style={{ textDecoration: 'none' }}
-                                    to={{
-                                        pathname: '/scanresult',
-                                        state: {
-                                            scanname: scan,
-                                        },
-                                    }}
-                                >
-                                    <ListItem button>{scan}</ListItem>
-                                </RouterLink> */}
                                 <Divider />
                             </React.Fragment>
                         );
