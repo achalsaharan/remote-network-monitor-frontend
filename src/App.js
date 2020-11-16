@@ -15,8 +15,10 @@ import Home from './pages/Home';
 import Scan from './pages/Scan';
 import AllScans from './pages/AllScans';
 import ScanResult from './pages/ScanResult';
+import FileTransfer from './pages/FileTransfer';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 
 const App = () => {
     return (
@@ -28,6 +30,7 @@ const App = () => {
                     <Route exact path="/scan" component={Scan} />
                     <Route exact path="/allscans" component={AllScans} />
                     <Route exact path="/scanresult" component={ScanResult} />
+                    <Route exact path="/filetransfer" component={FileTransfer} />
                 </Switch>
             </ThemeProvider>
         </Router>
