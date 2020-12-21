@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 
 // react router
 import { Link as RouterLink, Router } from 'react-router-dom';
+import { ControlPointDuplicateSharp, PublicSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
