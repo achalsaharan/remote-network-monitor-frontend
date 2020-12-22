@@ -12,6 +12,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import SendIcon from '@material-ui/icons/Send';
+import Axios from 'axios';
+const qs = require('querystring')
+
 
 function Copyright() {
     return (
@@ -54,6 +57,8 @@ export default function SignIn() {
     const classes = useStyles();
 
     const [files, setFiles] = useState([]);
+    const [file, setFile] = useState('somefile.dmg');
+    const [clientId, setClientId] = useState('');
 
     const res = [
         {'id': 1, 'filename': 'file1.exe'},
@@ -61,8 +66,39 @@ export default function SignIn() {
         {'id': 3, 'filename': 'file3.pdf'}
     ]
 
+
+    const getFiles = async () => {
+        
+        try {
+            const res = await Axios.get('http://127.0.0.1:5000/filetransfer')
+            console.log(res);
+            setFiles(res.data);
+        } catch (err) {
+            console.log('something went wrong', err);
+        }
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const obj = {'filename': file, 'client_id': clientId}
+            console.log('sending post', obj)
+
+            const config = {
+                headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+                }
+                }
+
+            const res = await Axios.post('http://127.0.0.1:5000/filetransfer', qs.stringify(obj), config)
+            console.log(res);
+        } catch (err) {
+            console.log('something went wrong', err);
+        }
+    }
+
     useEffect(() => {
-        setFiles(res);
+        getFiles();
     }, [])
  
     console.log(files)
@@ -77,7 +113,7 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     File Transfer
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={handleSubmit}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -86,21 +122,22 @@ export default function SignIn() {
                         id="ip_range"
                         label="client id"
                         name="ip_range"
+                        onChange = {(e) => setClientId(e.target.value)}
                         autoFocus
                     />
 
                     <FormControl
                         variant="outlined"
                         className={classes.formControl}
+                        // onChange = {(e) = setFile(e.target.value)}
                     >
-                        <InputLabel id="demo-simple-select-outlined-label">
+                        <InputLabel id="demo-simple-select-outlined-label" >
                             file to transfer
                         </InputLabel>
                         <Select
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
-                            // value={age}
-                            // onChange={handleChange}
+                        
                             label="file to transfer"
                         >
                             {files.map((item, idx) => {
